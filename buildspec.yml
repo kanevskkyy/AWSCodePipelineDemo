@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0 --install-dir /usr/share/dotnet9
-      - ln -sf /usr/share/dotnet9/dotnet /usr/local/bin/dotnet9
+      - echo '{"sdk":{"version":"9.0.313","rollForward":"latestMinor"}}' > /codebuild/global.json
   pre_build:
     commands:
       - /usr/share/dotnet9/dotnet restore AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
