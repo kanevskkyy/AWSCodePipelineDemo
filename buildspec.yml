@@ -3,25 +3,17 @@ version: 0.2
 phases:
   install:
     commands:
-      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0
-      - export DOTNET_ROOT="$HOME/.dotnet"
-      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
-      - dotnet --version
+      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0 --install-dir /usr/share/dotnet9
+      - ln -sf /usr/share/dotnet9/dotnet /usr/local/bin/dotnet9
   pre_build:
     commands:
-      - export DOTNET_ROOT="$HOME/.dotnet"
-      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
-      - dotnet restore AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - /usr/share/dotnet9/dotnet restore AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
   build:
     commands:
-      - export DOTNET_ROOT="$HOME/.dotnet"
-      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
-      - dotnet build AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - /usr/share/dotnet9/dotnet build AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
   post_build:
     commands:
-      - export DOTNET_ROOT="$HOME/.dotnet"
-      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
-      - dotnet publish -c Release -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - /usr/share/dotnet9/dotnet publish -c Release -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
 artifacts:
   files:
     - '**/*'
