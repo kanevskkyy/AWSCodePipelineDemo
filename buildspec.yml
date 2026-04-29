@@ -4,16 +4,23 @@ phases:
   install:
     commands:
       - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 9.0
-      - export PATH="$PATH:$HOME/.dotnet"
+      - export DOTNET_ROOT="$HOME/.dotnet"
+      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
       - dotnet --version
   pre_build:
     commands:
+      - export DOTNET_ROOT="$HOME/.dotnet"
+      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
       - dotnet restore AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
   build:
     commands:
+      - export DOTNET_ROOT="$HOME/.dotnet"
+      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
       - dotnet build AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
   post_build:
     commands:
+      - export DOTNET_ROOT="$HOME/.dotnet"
+      - export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
       - dotnet publish -c Release -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
 artifacts:
   files:
