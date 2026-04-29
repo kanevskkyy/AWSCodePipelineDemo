@@ -13,7 +13,7 @@ phases:
       - /usr/share/dotnet9/dotnet build AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
   post_build:
     commands:
-      - /usr/share/dotnet9/dotnet publish -c Release -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - /usr/share/dotnet9/dotnet publish -c Release -r linux-x64 --self-contained true -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
 artifacts:
   files:
     - '**/*'
